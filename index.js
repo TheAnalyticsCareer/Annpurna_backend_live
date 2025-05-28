@@ -64,11 +64,12 @@ app.post("/submit-enquiry", async (req, res) => {
     }
 
     // Save to database
-    await pool.query(
-      `INSERT INTO annpurnaEnquiries (name, phone, email, service, place, message) 
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [name, phone, email, service, place, message]
-    );
+   await pool.query(
+  `INSERT INTO annpurna_quotes (name, phone, email, price, height, material, finish)
+   VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+  [name, phone, email, price, height, material, finish]
+);
+
 
     // Send email
     await sendEmail("enquiry", { name, phone, email, service, place, message });
